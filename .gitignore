@@ -1,0 +1,25 @@
+# Environment variables and secrets
+.env
+*.local
+
+# Dependencies
+node_modules/
+vendor/
+venv/
+__pycache__/
+
+# Build and log files
+dist/
+build/
+*.log
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# IDE configuration
+.vscode/
+.idea/
+
+# Others
+resources/stock_exchange-main
