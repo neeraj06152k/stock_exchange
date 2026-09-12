@@ -1,5 +1,7 @@
 package dev.neeraj.exchange.core;
 
+import java.util.Optional;
+
 public final class Types {
     private Types(){}
 
@@ -14,7 +16,13 @@ public final class Types {
 
     public static final long PRICE_SCALE = 10_000L;
 
-    public enum Side {BUY, SELL}
+    public enum Side {
+        BUY, SELL;
+        public static Side opposite(Side side){
+            assert(side!=null);
+            return side.equals(Side.BUY)?Side.SELL:Side.BUY;
+        }
+    }
 
     public enum OrderStatus {
         NEW,
@@ -36,15 +44,6 @@ public final class Types {
         POST_ONLY
     }
 
-    public enum ReasonCode{
-        NONE,
-        INVALID_QUANTITY,
-        BOOK_EMPTY,
-        DUPLICATE_ORDER_ID,
-        ORDER_NOT_FOUND,
-        FOK_INSUFFICIENT_LIQUIDITY,
-        POST_ONLY_WOULD_CROSS
-    }
 
     public static long toPrice(double p){
         return (long) (p*PRICE_SCALE);

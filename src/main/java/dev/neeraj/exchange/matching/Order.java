@@ -11,7 +11,7 @@ public class Order {
     private final Side side;
     private final OrderType type;
     private final long timestamp;
-    private final int participantId;
+    private final long participantId;
     private final int originalQty;
 
 
@@ -67,7 +67,7 @@ public class Order {
     public int qty() { return qty; }
     public int originalQty() { return originalQty; }
     public long timestamp() { return timestamp; }
-    public int participantId() { return participantId; }
+    public long participantId() { return participantId; }
     public OrderStatus status() { return status; }
     public long triggerPrice() { return triggerPrice; }
     public int displayQty() { return displayQty; }
@@ -117,7 +117,7 @@ public class Order {
     public void cancel(){this.status = OrderStatus.CANCELLED;}
 
     public void setPrice(long price){this.price = price;}
-    // public void setQty(int qty){this.qty = qty;}
+    public void setQty(int qty){this.qty = qty;}
     public void setStatus(OrderStatus status){this.status = status;}
 
 
@@ -131,7 +131,7 @@ public class Order {
         private long price;
         private int qty;
         private long timestamp;
-        private int participantId;
+        private long participantId;
         private long triggerPrice = 0L;
         private int displayQty = 0;
 
@@ -167,7 +167,7 @@ public class Order {
             return this;
         }
 
-        public Builder participantId(int participantId) {
+        public Builder participantId(long participantId) {
             this.participantId = participantId;
             return this;
         }

@@ -1,7 +1,6 @@
 package dev.neeraj.exchange.matching;
 
 import dev.neeraj.exchange.core.Types.OrderType;
-import dev.neeraj.exchange.core.Types.ReasonCode;
 import dev.neeraj.exchange.core.Types.Side;
 
 public class Event {
@@ -15,6 +14,21 @@ public class Event {
         ORDER_FILLED,
         ORDER_CANCELED,
         TRADE
+    }
+
+    public enum ReasonCode {
+        NONE,
+        INVALID_QUANTITY,
+        NEGATIVE_PRICE,
+        BOOK_EMPTY,
+        DUPLICATE_ORDER_ID,
+        ORDER_NOT_FOUND,
+        ORDER_NOT_ACTIVE,
+        FOK_INSUFFICIENT_LIQUIDITY,
+        POST_ONLY_WOULD_CROSS,
+        INVALID_MODIFICATION,
+        INVALID_ICEBERG_DISPLAY,
+        ORDER_POOL_EXHAUSTED
     }
 
     // --- 1. Event Type Tag ---
@@ -37,11 +51,11 @@ public class Event {
     private long sellOrderId;
 
     // --- 3. Mutation Methods (Overwriting in-place with ZERO allocations) ---
-     public void setOrderAccepted(long seq, long ts, long orderId, String symbol,
+     public void setOrderAccepted(long sequenceNumber, long timestamp, long orderId, String symbol,
                                  Side side, long price, int qty, OrderType orderType) {
         this.type = EventType.ORDER_ACCEPTED;
-        this.sequenceNumber = seq;
-        this.timestamp = ts;
+        this.sequenceNumber = sequenceNumber;
+        this.timestamp = timestamp;
         this.orderId = orderId;
         this.symbol = symbol;
         this.side = side;
@@ -49,61 +63,61 @@ public class Event {
         this.qty = qty;
         this.orderType = orderType;
     }
-    public void setOrderRested(long seq, long ts, long orderId, String symbol,
+    public void setOrderRested(long sequenceNumber, long timestamp, long orderId, String symbol,
                                Side side, long price, int qty) {
         this.type = EventType.ORDER_RESTED;
-        this.sequenceNumber = seq;
-        this.timestamp = ts;
+        this.sequenceNumber = sequenceNumber;
+        this.timestamp = timestamp;
         this.orderId = orderId;
         this.symbol = symbol;
         this.side = side;
         this.price = price;
         this.qty = qty;
     }
-    public void setOrderRejected(long seq, long ts, long orderId, ReasonCode reason) {
+    public void setOrderRejected(long sequenceNumber, long timestamp, long orderId, ReasonCode reason) {
         this.type = EventType.ORDER_REJECTED;
-        this.sequenceNumber = seq;
-        this.timestamp = ts;
+        this.sequenceNumber = sequenceNumber;
+        this.timestamp = timestamp;
         this.orderId = orderId;
         this.reasonCode = reason;
     }
-    public void setOrderReduced(long seq, long ts, long orderId, int newQty) {
+    public void setOrderReduced(long sequenceNumber, long timestamp, long orderId, int newQty) {
         this.type = EventType.ORDER_REDUCED;
-        this.sequenceNumber = seq;
-        this.timestamp = ts;
+        this.sequenceNumber = sequenceNumber;
+        this.timestamp = timestamp;
         this.orderId = orderId;
         this.qty = newQty;
     }
-    public void setOrderPartiallyFilled(long seq, long ts, long orderId,
+    public void setOrderPartiallyFilled(long sequenceNumber, long timestamp, long orderId,
                                         int filledQty, int remainingQty, long price) {
         this.type = EventType.ORDER_PARTIALLY_FILLED;
-        this.sequenceNumber = seq;
-        this.timestamp = ts;
+        this.sequenceNumber = sequenceNumber;
+        this.timestamp = timestamp;
         this.orderId = orderId;
         this.qty = filledQty;
         this.remainingQty = remainingQty;
         this.price = price;
     }
-    public void setOrderFilled(long seq, long ts, long orderId, int filledQty, long price) {
+    public void setOrderFilled(long sequenceNumber, long timestamp, long orderId, int filledQty, long price) {
         this.type = EventType.ORDER_FILLED;
-        this.sequenceNumber = seq;
-        this.timestamp = ts;
+        this.sequenceNumber = sequenceNumber;
+        this.timestamp = timestamp;
         this.orderId = orderId;
         this.qty = filledQty;
         this.price = price;
     }
-    public void setOrderCanceled(long seq, long ts, long orderId, int canceledQty) {
+    public void setOrderCanceled(long sequenceNumber, long timestamp, long orderId, int canceledQty) {
         this.type = EventType.ORDER_CANCELED;
-        this.sequenceNumber = seq;
-        this.timestamp = ts;
+        this.sequenceNumber = sequenceNumber;
+        this.timestamp = timestamp;
         this.orderId = orderId;
         this.qty = canceledQty;
     }
-    public void setTrade(long seq, long ts, long matchId, String symbol,
+    public void setTrade(long sequenceNumber, long timestamp, long matchId, String symbol,
                          long buyOrderId, long sellOrderId, long price, int qty) {
         this.type = EventType.TRADE;
-        this.sequenceNumber = seq;
-        this.timestamp = ts;
+        this.sequenceNumber = sequenceNumber;
+        this.timestamp = timestamp;
         this.matchId = matchId;
         this.symbol = symbol;
         this.buyOrderId = buyOrderId;

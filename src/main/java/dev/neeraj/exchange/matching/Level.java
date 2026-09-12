@@ -56,4 +56,8 @@ public class Level {
     public long price(){
         return price;
     }
+
+    public int totalQty(){
+        return totalQty;
+    }
 }
