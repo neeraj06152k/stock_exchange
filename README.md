@@ -34,7 +34,7 @@ This branch houses the **functional prototype** and **golden reference model** o
                                  ▼          ▼          ▼
                       ┌───────────────┐  ┌──────┐  ┌──────────────┐
                       │ Type Check:   │  │ O(1) │  │ In-place qty │
-                      │ Stop vs Limit │  │ Remove│ │ reduction    │
+                      │ Stop vs Limit │  │Remove│  │ reduction    │
                       └───┬───────┬───┘  └──────┘  └──────────────┘
                           │       │
               Is STOP?    │       │ Immediate / Limit

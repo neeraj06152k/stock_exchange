@@ -1,7 +1,5 @@
 package dev.neeraj.exchange.core;
 
-import java.util.Optional;
-
 public final class Types {
     private Types(){}
 
